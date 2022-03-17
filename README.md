@@ -1,4 +1,4 @@
-# HuPat-BIOI48790
+# HuPat - Human Pathogen Sequence Repository
 Repository for BIOI4870 undergraduate course project
 
 ## Access
