@@ -1,8 +1,8 @@
 # HuPat - Human Pathogen Sequence Repository
 Repository for BIOI4870 undergraduate course project
 
-## Access
-*To be Added*
+## Site Availability
+HuPat can be accessed at http://odin.unomaha.edu/~rchapman/HuPat/home.html
 
 ## Purpose
 The purpose of the Human Pathogen Sequence Repository (HuPat) is to compile genetic sequence data from human pathogens for search, retrieval, and analysis. Without a consolidated and concise repository for this data, any in silico procedure is inherently disadvantaged, as additional data manipulation and retrieval will be required. In many cases, these additional measures required bioinformatics experience, which is not universal amongst biomedical researchers. The creation of HuPat should lead to both consolidation human pathogen sequencing as well as increase the accessibility of such analyses to a wider array of scientists.
