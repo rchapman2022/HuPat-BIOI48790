@@ -7,86 +7,161 @@
  
      <!-- Bootstrap CSS -->
      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+     <!--Social Icons-->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     
      <!--Javascript for BootStrap-->
      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
 
+     <script>
+        function callSearch() {
+            document.getElementsByName("FormErrorBox")[0].style.visibility = "hidden";
+            var org = document.getElementById("OrgName").value;
+    
+            if (org.length == 0) {
+                console.log(org);
+                document.getElementsByName("ErrorMessage")[0].innerHTML = "No Organism Entered";
+                document.getElementsByName("FormErrorBox")[0].style.visibility = "visible";
+            }
+            else
+            {
+                fetch("SearchOrganism.php", {method: "POST", body: org})
+                .then(res => res.json())
+                .then(function (data) {
+                    document.getElementById("orgName").innerHTML = data[0].orgName;
+                    document.getElementById("rankSlot").innerHTML = data[0].rank;
+                    document.getElementById("linSlot").innerHTML = data[0].lineage;
+                    document.getElementById("taxSlot").innerHTML = data[0].taxID;
+                    document.getElementById("assemblySlot").innerHTML = data[0].assembly;
+                    document.getElementById("downloadLink").href = data[0].downloadLink;
+                    document.getElementById("titleSlot").innerHTML = data[0].title;
+                    document.getElementById("articleLink").href = data[0].articleLink;
+                });
+            }
+                
+        }
+    </script>
 </head>
-<body>
+<body class="pb-5">
     <nav class="navbar navbar-expand-lg navbar-dark sticky-top" style="background-color:#0049bf;">
         <div class="container-fluid">
             <a class="navbar-brand p-3" href="#">HuPat - Human Pathogen Sequence Repository</a>
         </div>
     </nav>
 
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+        <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
+          <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+        </symbol>
+        <symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">
+          <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+        </symbol>
+        <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
+          <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+        </symbol>
+      </svg>
+
     <div class="container-fluid px-5">
         <div class="row mt-5">
             <div class="col-md-2">
+                <div class="row" style="position: sticky; top: 6em;">
                 <h3>Search Database</h3>
-                <form>
-                    <div class="mb-3">
-                        <label for="organism search" class="form-label pb-0">Enter Oragnism Name:</label>
-                        <input class="form-control" type="text" placeholder="Ex: Genus Species"/>
-                        <button name="formButton" type="submit" class="btn mt-2 pt-1" style="background-color: #0049bf;color: white;">Submit</button>
-                    </div>
-                </form>
+                    <form onsubmit="callSearch(); return false;">
+                        <div class="mb-3">
+                            <label for="organism search" class="form-label pb-0">Enter Oragnism Name:</label>
+                            <input class="form-control" type="text" id="OrgName" placeholder="Ex: Genus Species"/>
+                            <button name="formButton" type="submit" class="btn mt-2 pt-1" style="background-color: #0049bf;color: white;">Submit</button>
+                            <div name="FormErrorBox" style="visibility: hidden;" class="alert alert-danger d-flex align-items-center mt-2" role="alert">
+                                <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                                <div name="ErrorMessage"></div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
             <div class="col-md-6 ">
-                <div class="container-fluid">
+                <div class="row" style="position: sticky; top: 6em;">
+                <div class="container-fluid" style="visibility: visible;">
                     <div class="row border-bottom pt-2 mb-2">
-                        <h3>Organism:</h3>
+                        <div class="col-auto"><h3>Organism:</h3></div>
+                        <div class="col-auto"><h3 id="orgName"></h3></div>
                     </div>
-                    <div class="row">
-                        <p>Rank: </p>
+                    <div class="row pb-1">
+                        <div class="col-auto"><strong>Rank:</strong></div>
+                        <div class="col-auto" id="rankSlot">Test</div>
                     </div>
-                    <div class="row">
-                        <p>Lineage: </p>
+                    <div class="row pb-1">
+                        <div class="col-auto"><strong>Lineage:</strong></div>
+                        <div class="col-auto" id="linSlot"></div>
                     </div>
-                    <div class="row">
-                        <p>NCBI TaxonomyID: </p>
+                    <div class="row pb-3">
+                        <div class="col-auto"><strong>NCBI TaxonomyID: </strong></div>
+                        <div class="col-auto" id="taxSlot">Test</div>
                     </div>
-                    <div class="row pb-2">
-                        <h5>NCBI RefSeq Genome: </h5>
-                        <p>Assemly:</p>
-                        <p>Link: </p>
-                        <button type="button" class="btn mt-2 pt-1" style="background-color: #0049bf;color: white;">Download</button>
+                    <div class="row pb-1 border-bottom mb-2">
+                        <div class="col-auto"><h5>NCBI RefSeq Genome: </h5></div>
                     </div>
-                    <div class="row pb-2">
-                        <h5>Most Recent PubMed Article: </h5>
-                        <p>Title:</p>
-                        <a class="btn mt-2 pt-1" style="background-color: #0049bf;color: white;" href="" role="button">Link</a></button>
+                    <div class="row pb-3">
+                        <div class="col-auto"><strong>Assembly: </strong></div>
+                        <div class="col-auto" id="assemblySlot">Test</div>
+                        <div>
+                            <a id ="downloadLink" class="btn mt-2 pt-1" style="background-color: #0049bf;color: white;">Download</a>
+                        </div>
+                    </div>
+                    <div class="row pb-1 border-bottom mb-2">
+                        <div class="col-auto"><h5>Most Recent PubMed Article: </h5></div>
+                    </div>
+                    <div class="row pb-1">
+                        <div class="col-auto"><strong>Title: </strong></div>
+                        <div class="col-auto" id="titleSlot">Test</div>
+                        <div>
+                            <a id="articleLink" class="btn mt-2 pt-1" style="background-color: #0049bf;color: white;">View Article</a>
+                        </div>
                     </div>
                 </div>
             </div>
+            </div>
             <div class="col-md-3 mx-5" align="center">
+                <div class="row">
                     <img class="img-fluid" src="HuPathLogo.JPG">
-                    <h3 align="left" class = "px-3">Human Pathogen Sequence Repository</h3>
+                    </div>
+                    <div class="row px-3">
+                    <h3 align="left">Human Pathogen Sequence Repository</h3>
                     <hr/>
                     <figure>
                         <blockquote class="blockquote">
-                          <p align="left" class = "px-3">Over 1400 species are reconigzed as human pathogens</p>
+                          <p align="left">Over 1400 species are reconigzed as human pathogens</p>
                         </blockquote>
                         <figcaption class="blockquote-footer">
                           <cite title="Source Title">Woolhouse et al. 2005</cite> <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3367654/">10.3201/eid1112.050997</a>
                         </figcaption>
                       </figure>
-                    <p align="left" class = "px-3">The purpose of HuPat is to consolidate the genomic sequencing data for human pathogenic orgnaisms. 
+                    <p align="left">The purpose of HuPat is to consolidate the genomic sequencing data for human pathogenic orgnaisms. 
                         This includes Bacteria, Fungi, Protozoa, and Viruses. By creating this resource, we hope to improve the in silico screening process for 
                         assays such as molecular diagnostic detection and drug screening.</p>
-                    <p align="left" class="px-3">To utilze this database, enter an organism name into the search bar on the left. Data pertaining to the organism's name, 
+                    <p align="left">To utilze this database, enter an organism name into the search bar on the left. Data pertaining to the organism's name, 
                         rank, lineage, NCBI Taxonomy ID, and recent PubMed Articles will be displayed. Additionally a link to download the most update RefSeq assembly will also be included.</p>
                     
-                    <h4 align="left" class="px-3">Video Tutorial:</h4>
-                    <p align="left" class="px-3">To be added</p>
+                    <h4 align="left">Video Tutorial:</h4>
+                    <p align="left">To be added</p>
                     <div class="embed-responsive embed-responsive-16by9">
                         <iframe class="embed-responsive-item" src="https://www.youtube.com/watch?v=dQw4w9WgXcQ" allowfullscreen></iframe>
-                      </div>
+                    </div>
+                    <p align="left" class="text-muted mt-4"> This project was created for the BIOI-4870 Course at the University of Nebraska at Omaha. The code is liscensed under the GPL
+                        3.0 Liscence. Access to the source code can be found on my Github.</p>
+                    <div align="left">
+                    <a class="btn btn-primary mt-2" style="background-color: #333333;" href="https://github.com/rchapman2022/HuPat-BIOI48790" role="button"
+                        ><i class="fa fa-github me-2"></i>GitHub Repo</a>
+                    </div>
+                    <p align="left" class="mt-4"><strong>Author:</strong> Ryan Chapman</p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
 
 </body>
+
 </html
