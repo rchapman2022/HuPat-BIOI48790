@@ -29,6 +29,7 @@ CREATE TABLE RefSeqEntry (
 
 CREATE TABLE PubMedEntries (
     pubmedID VARCHAR(20) NOT NULL PRIMARY KEY,
+    article_title VARCHAR(500) NOT NULL,
     article_link VARCHAR(200) NOT NULL
 );
 
