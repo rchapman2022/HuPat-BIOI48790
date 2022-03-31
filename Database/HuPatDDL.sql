@@ -21,7 +21,7 @@ CREATE TABLE Organism (
 CREATE TABLE RefSeqEntry (
     refSeq_accession VARCHAR(20) NOT NULL PRIMARY KEY,
     ncbi_refseq_link VARCHAR(100) NOT NULL,
-    assembly_file_loc VARCHAR(100) NOT NULL,
+    assembly_link VARCHAR(100) NOT NULL,
     organismID INT NOT NULL,
 
     FOREIGN KEY (organismID),
