@@ -1,5 +1,10 @@
 -- Data Definition for HuPat
 
+CREATE TABLE Taxonomy (
+    taxID VARCHAR(20) NOT NULL PRIMARY KEY,
+    ncbi_tax_link VARCHAR(200) NOT NULL
+);
+
 --Creates the Organism Table
 ---- Organism ID - A unique identifier that represents an Organism
 ---- Linkeage - Taxonomic lineage of the Organism
@@ -11,10 +16,7 @@ CREATE TABLE Organism (
     lineage VARCHAR(100) NOT NULL,
     organism_rank VARCHAR(20) NOT NULL,
     organism_name VARCHAR(50) NOT NULL,
-    taxID VARCHAR(20) NOT NULL,
-
-    FOREIGN KEY (taxID)
-        REFERENCES Taxonomy(taxID)
+    taxID VARCHAR(20) NOT NULL REFERENCES Taxonomy(taxID),
 );
 
 
@@ -22,15 +24,7 @@ CREATE TABLE RefSeqEntry (
     refSeq_accession VARCHAR(20) NOT NULL PRIMARY KEY,
     ncbi_refseq_link VARCHAR(100) NOT NULL,
     assembly_link VARCHAR(100) NOT NULL,
-    organismID INT NOT NULL,
-
-    FOREIGN KEY (organismID),
-        REFERENCES Organism(organismID)
-);
-
-CREATE TABLE Taxonomy (
-    taxID VARCHAR(20) NOT NULL PRIMARY KEY,
-    ncbi_tax_link VARCHAR(200) NOT NULL
+    organismID INT NOT NULL REFERENCES Organism(organismID),
 );
 
 CREATE TABLE PubMedEntries (
@@ -39,15 +33,9 @@ CREATE TABLE PubMedEntries (
 );
 
 CREATE TABLE OrganismPubMedLink (
-    organismID INT NOT NULL,
-    pubmedID VARCHAR(20) NOT NULL,
+    organismID INT NOT NULL REFERENCES Organism(organismID),
+    pubmedID VARCHAR(20) NOT NULL REFERENCES PubMedEntries(pubmedID),
 
     CONSTRAINT PK_OrganismsPubMedLink PRIMARY KEY (organismID,pubmedID),
-
-    FOREIGN KEY (organismID)
-        REFERENCES Organism(organismID),
-    
-    FOREIGN KEY (pubmedID)
-        REFERENCES PubMedEntries(pubmedID)
 );
 
