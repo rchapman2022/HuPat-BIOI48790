@@ -70,7 +70,7 @@ def main():
         # Thus, we need to retrieve it to enter in subsequent tables
         grabOrgID = "SELECT organismID FROM Organism WHERE organism_name = '{0}';".format(OrgName)
         cursor.execute(grabOrgID)
-        orgId = cursor.fetchone()
+        orgId = cursor.fetchone()[0]
         #orgId = "placeholder"
 
         # Searches the NCBI Assembly Database for genome assemblies filtered for the organism
