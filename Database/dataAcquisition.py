@@ -1,16 +1,10 @@
 from Bio import Entrez
-import mysql.connector
+import MySQLdb
 
 NCBI_Tax_Link_prefix = "https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id="
 NCBI_RefSeq_Link_prefix = "https://www.ncbi.nlm.nih.gov/assembly/"
 NCBI_PubMed_Link_prefix = "https://pubmed.ncbi.nlm.nih.gov/"
 
-mysqlConfig = {
-    'user': 'rchapman',
-    'password': '',
-    'host': 'localhost',
-    'database': 'rchapman'
-}
 
 # The purpose of this script is to automate the process of data collection and 
 # entry into the HuPat database. The script will be run daily via a cron job
@@ -23,7 +17,7 @@ mysqlConfig = {
 def main():
     
     # Create MySQL connection and cursor
-    cnx = mysql.connector.connect(**mysqlConfig)
+    cnx = MySQLdb.connect(user="rchapman", password='', host='localhost', db='rchapman')
     cursor = cnx.cursor()
 
     # Read in file containing list of organism taxonomic classifications
@@ -75,8 +69,8 @@ def main():
         # Thus, we need to retrieve it to enter in subsequent tables
         grabOrgID = "SELECT organismID FROM Organism WHERE organism_name = '{0}';".format(OrgName)
         cursor.execute(grabOrgID)
-        orgId = cursor.OrgID
-        orgId = "placeholder"
+        orgId = cursor.fetchone()
+        #orgId = "placeholder"
 
         # Searches the NCBI Assembly Database for genome assemblies filtered for the organism
         # and for only reference genomes
