@@ -16,7 +16,7 @@ CREATE TABLE Organism (
     lineage VARCHAR(100) NOT NULL,
     organism_rank VARCHAR(20) NOT NULL,
     organism_name VARCHAR(50) NOT NULL,
-    taxID VARCHAR(20) NOT NULL REFERENCES Taxonomy(taxID),
+    taxID VARCHAR(20) NOT NULL REFERENCES Taxonomy(taxID)
 );
 
 
@@ -24,7 +24,7 @@ CREATE TABLE RefSeqEntry (
     refSeq_accession VARCHAR(20) NOT NULL PRIMARY KEY,
     ncbi_refseq_link VARCHAR(100) NOT NULL,
     assembly_link VARCHAR(100) NOT NULL,
-    organismID INT NOT NULL REFERENCES Organism(organismID),
+    organismID INT NOT NULL REFERENCES Organism(organismID)
 );
 
 CREATE TABLE PubMedEntries (
@@ -36,6 +36,6 @@ CREATE TABLE OrganismPubMedLink (
     organismID INT NOT NULL REFERENCES Organism(organismID),
     pubmedID VARCHAR(20) NOT NULL REFERENCES PubMedEntries(pubmedID),
 
-    CONSTRAINT PK_OrganismsPubMedLink PRIMARY KEY (organismID,pubmedID),
+    CONSTRAINT PK_OrganismsPubMedLink PRIMARY KEY (organismID,pubmedID)
 );
 
