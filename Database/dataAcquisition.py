@@ -58,7 +58,6 @@ def main():
         insertTax = "INSERT INTO Taxonomy (taxID, ncbi_tax_link) VALUES ('{0}', '{1}');".format(taxID, NCBI_Tax_Link_prefix + taxID)
         print(insertTax)
         cursor.execute(insertTax)
-        cursor.commit()
 
         # Insert Lineage, Organism Name, Rank, and TaxonomyID into the Organism
         # table
