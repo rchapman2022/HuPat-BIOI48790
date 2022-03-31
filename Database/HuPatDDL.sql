@@ -13,7 +13,7 @@ CREATE TABLE Taxonomy (
 ---- taxID - A unique taxonomic ID of the organism
 CREATE TABLE Organism (
     organismID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    lineage VARCHAR(100) NOT NULL,
+    lineage VARCHAR(500) NOT NULL,
     organism_rank VARCHAR(20) NOT NULL,
     organism_name VARCHAR(50) NOT NULL,
     taxID VARCHAR(20) NOT NULL REFERENCES Taxonomy(taxID)
