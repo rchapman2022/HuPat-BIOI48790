@@ -71,6 +71,7 @@ def main():
         grabOrgID = "SELECT organismID FROM Organism WHERE organism_name = '{0}';".format(OrgName)
         cursor.execute(grabOrgID)
         orgId = cursor.fetchone()[0]
+        print(orgId)
         #orgId = "placeholder"
 
         # Searches the NCBI Assembly Database for genome assemblies filtered for the organism
@@ -97,7 +98,7 @@ def main():
         #print(refSeqFTP)
         #print(refSeqLink)
 
-        insertRefSeq = "INSERT INTO RefSeqEntry (refSeq_accession, ncbi_refseq_link, assembly_link, orgID) VALUES ('{0}', '{1}', '{2}', '{3})".format(refSeqAcc, refSeqLink, refSeqFTP, orgId)
+        insertRefSeq = "INSERT INTO RefSeqEntry (refSeq_accession, ncbi_refseq_link, assembly_link, organismID) VALUES ('{0}', '{1}', '{2}', {3})".format(refSeqAcc, refSeqLink, refSeqFTP, orgId)
         print(insertRefSeq)
         cursor.execute(insertRefSeq)
 
@@ -131,6 +132,7 @@ def main():
 
     # Close the MySQL cursor, mysql Connection and the input file.
     cursor.close()
+    cnx.commit()
     cnx.close()
     inFile.close()
 
