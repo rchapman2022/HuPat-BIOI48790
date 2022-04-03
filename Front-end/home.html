@@ -30,14 +30,23 @@
                 fetch("SearchOrganism.php", {method: "POST", body: org})
                 .then(res => res.json())
                 .then(function (data) {
-                    document.getElementById("orgName").innerHTML = data[0].orgName;
-                    document.getElementById("rankSlot").innerHTML = data[0].rank;
-                    document.getElementById("linSlot").innerHTML = data[0].lineage;
-                    document.getElementById("taxSlot").innerHTML = data[0].taxID;
-                    document.getElementById("assemblySlot").innerHTML = data[0].assembly;
-                    document.getElementById("downloadLink").href = data[0].downloadLink;
-                    document.getElementById("titleSlot").innerHTML = data[0].title;
-                    document.getElementById("articleLink").href = data[0].articleLink;
+                    if (data.status == "success") {
+                        document.getElementById("orgName").innerHTML = data[0].orgName;
+                        document.getElementById("rankSlot").innerHTML = data[0].rank;
+                        document.getElementById("linSlot").innerHTML = data[0].lineage;
+                        document.getElementById("taxSlot").innerHTML = data[0].taxID;
+                        document.getElementById("taxLink").href = data[0].taxLink;
+                        document.getElementById("assemblySlot").innerHTML = data[0].assembly;
+                        document.getElementById("refSeqLink").href = data[0].refSeqLink;
+                        document.getElementById("downloadLink").href = data[0].downloadLink;
+                        document.getElementById("titleSlot").innerHTML = data[0].title;
+                        document.getElementById("articleLink").href = data[0].articleLink;
+                        document.getElementById("DataContainer").style.visibility = "visible";
+                    }
+                    else {
+                        document.getElementsByName("ErrorMessage")[0].innerHTML = "Organism Not Found";
+                        document.getElementsByName("FormErrorBox")[0].style.visibility = "visible"; 
+                    }
                 });
             }
                 
@@ -83,7 +92,7 @@
             </div>
             <div class="col-md-6 ">
                 <div class="row" style="position: sticky; top: 6em;">
-                <div class="container-fluid" style="visibility: visible;">
+                <div class="container-fluid" id = "DataContainer" style="visibility: visible;">
                     <div class="row border-bottom pt-2 mb-2">
                         <div class="col-auto"><h3>Organism:</h3></div>
                         <div class="col-auto"><h3 id="orgName"></h3></div>
@@ -99,6 +108,9 @@
                     <div class="row pb-3">
                         <div class="col-auto"><strong>NCBI TaxonomyID: </strong></div>
                         <div class="col-auto" id="taxSlot">Test</div>
+                        <div>
+                            <a id ="taxLink" class="btn mt-2 pt-1" style="background-color: #0049bf;color: white;">Taxonomy Entry</a>
+                        </div>
                     </div>
                     <div class="row pb-1 border-bottom mb-2">
                         <div class="col-auto"><h5>NCBI RefSeq Genome: </h5></div>
@@ -107,6 +119,7 @@
                         <div class="col-auto"><strong>Assembly: </strong></div>
                         <div class="col-auto" id="assemblySlot">Test</div>
                         <div>
+                            <a id ="refSeqLink" class="btn mt-2 pt-1" style="background-color: #0049bf;color: white;">RefSeq Entry</a>
                             <a id ="downloadLink" class="btn mt-2 pt-1" style="background-color: #0049bf;color: white;">Download</a>
                         </div>
                     </div>
