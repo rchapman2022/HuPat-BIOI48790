@@ -53,16 +53,13 @@ def main():
         initialTaxSearch.close()
         taxHandle.close()
         
-        # Insert TaxonomyID and link to the NCBI Taxonomy page into the Taxonomy
-        # table
+        # Creates and executes an insert statemtn for the Taxonomy table
         insertTax = "INSERT INTO Taxonomy (taxID, ncbi_tax_link) VALUES ('{0}', '{1}');".format(taxID, NCBI_Tax_Link_prefix + taxID)
         print(insertTax)
         cursor.execute(insertTax)
 
-        # Insert Lineage, Organism Name, Rank, and TaxonomyID into the Organism
-        # table
+        # Creates an executes an insert statement for the Organism table
         insertOrg = "INSERT INTO Organism (lineage, organism_rank, organism_name, taxID) VALUES ('{0}', '{1}', '{2}', '{3}');".format(lineage, rank, OrgName, taxID)
-        print(insertOrg)
         cursor.execute(insertOrg)
 
 
@@ -71,8 +68,6 @@ def main():
         grabOrgID = "SELECT organismID FROM Organism WHERE organism_name = '{0}';".format(OrgName)
         cursor.execute(grabOrgID)
         orgId = cursor.fetchone()[0]
-        print(orgId)
-        #orgId = "placeholder"
 
         # Searches the NCBI Assembly Database for genome assemblies filtered for the organism
         # and for only reference genomes
@@ -94,12 +89,8 @@ def main():
         refSeqFTP = refSeqRec['DocumentSummarySet']['DocumentSummary'][0]["FtpPath_RefSeq"]
         refSeqLink = NCBI_RefSeq_Link_prefix + refSeqAcc + "/"
 
-        #print(refSeqAcc)
-        #print(refSeqFTP)
-        #print(refSeqLink)
-
+        # Creates and executes an insert statement for the RefSeqEntry table
         insertRefSeq = "INSERT INTO RefSeqEntry (refSeq_accession, ncbi_refseq_link, assembly_link, organismID) VALUES ('{0}', '{1}', '{2}', {3})".format(refSeqAcc, refSeqLink, refSeqFTP, orgId)
-        print(insertRefSeq)
         cursor.execute(insertRefSeq)
 
         # Searches the NCBI PubMed Database for articles references in the organism
@@ -107,7 +98,6 @@ def main():
         initialPubMedSearch = Entrez.esearch(db="pubmed", term="{0}".format(org), sort ="pub date")
         initialPubMedRec = Entrez.read(initialPubMedSearch)
         
-        #print(initialPubMedRec)
 
         # Use the NCBI PubMed ID to grab the record
         pubMedHandle = Entrez.esummary(db="pubmed", id=initialPubMedRec["IdList"][0])
@@ -122,12 +112,12 @@ def main():
         initialPubMedSearch.close()
         pubMedHandle.close()
 
+        # Creates and executes an insert statment for the PubMedEntry table
         insertPubMed = "INSERT INTO PubMedEntries (pubmedID, article_title, article_link) VALUES ('{0}', '{1}', '{2}');".format(pubMedID, pubMedTitle, pubMedLink)
-        print(insertPubMed)
         cursor.execute(insertPubMed)
 
+        # Creates and executes an insert statement for the OrganismPubMedLink table
         insertPubOrgLink = "INSERT INTO OrganismPubMedLink (organismID, pubmedID) VALUES ('{0}', '{1}');".format(orgId, pubMedID)
-        print(insertPubOrgLink)
         cursor.execute(insertPubOrgLink)
 
     # Close the MySQL cursor, mysql Connection and the input file.
@@ -135,12 +125,6 @@ def main():
     cnx.commit()
     cnx.close()
     inFile.close()
-
-
-
-
-        
-
 
 
 if __name__ == "__main__":

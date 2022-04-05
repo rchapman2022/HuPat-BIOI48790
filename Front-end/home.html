@@ -15,26 +15,44 @@
      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
 
+     <!--Javascript script that connects the HTML from to the php back-end-->
      <script>
+        // Function callSearch()
+        // 
+        // Called when the HTML page form is submitted. Grabs the organism entered in the text box,
+        // does data inspection to ensure that the entry is not blank, and send the organism to the 
+        // PHP backend. Then appends the data to the relevant locations on the page or displays an
+        // error.
         function callSearch() {
+            // Resets the Error box to being hidden.
             document.getElementsByName("FormErrorBox")[0].style.visibility = "hidden";
+
+            // Grabs the organism name from the submission box.
             var org = document.getElementById("OrgName").value;
-    
+       
+            // Checks whether the data is empty. If so, it displays an error
             if (org.length == 0) {
-                console.log(org);
+                // Sets the error box message and makes the error box visible.
                 document.getElementsByName("ErrorMessage")[0].innerHTML = "No Organism Entered";
                 document.getElementsByName("FormErrorBox")[0].style.visibility = "visible";
             }
             else
             {
-		var params = { OrgName: org };
-		console.log(JSON.stringify(params));
+                // Packages the organism name into an object to make JSON
+                // conversion possible
+                var params = { OrgName: org };
 
-	        fetch("SearchOrganism.php", {method: "POST", body: JSON.stringify(params)})
-	        .then(res => res.json())
+                // Sends a POST requset to the php back-end script including the organism name
+                // in JSON format
+                fetch("SearchOrganism.php", {method: "POST", body: JSON.stringify(params)})
+                // Grabs the result value when returned
+                .then(res => res.json())
+                // Grabs the data from the result 
                 .then(function (data) {
-		    console.log(data)
+                    // Checks the 'status' attribute in the data. If 'success', the data will
+                    // be dispayed on the page.
                     if (data.status == "success") {
+                        // Appends the returned data to the representative page elements
                         document.getElementById("orgName").innerHTML = data.orgName;
                         document.getElementById("rankSlot").innerHTML = data.rank;
                         document.getElementById("linSlot").innerHTML = data.lineage;
@@ -45,9 +63,14 @@
                         document.getElementById("downloadLink").href = data.downloadLink;
                         document.getElementById("titleSlot").innerHTML = data.title;
                         document.getElementById("articleLink").href = data.articleLink;
+
+                        // Makes the container showing the data visible.
                         document.getElementById("DataContainer").style.visibility = "visible";
                     }
+                    // In this condition, no data has been returned, indicating that no
+                    // organism with the provided name was found.
                     else {
+                        // Sets the error box message and makes the error box visible.
                         document.getElementsByName("ErrorMessage")[0].innerHTML = "Organism Not Found";
                         document.getElementsByName("FormErrorBox")[0].style.visibility = "visible"; 
                     }
@@ -57,13 +80,15 @@
         }
     </script>
 </head>
+
 <body class="pb-5">
+    <!--Encodes the 'navbar' of the site - this actually is just meant to display the site logo.-->
     <nav class="navbar navbar-expand-lg navbar-dark sticky-top" style="background-color:#0049bf;">
         <div class="container-fluid">
             <a class="navbar-brand p-3" href="#">HuPat - Human Pathogen Sequence Repository</a>
         </div>
     </nav>
-
+    <!--SVG social media graphics imported from W3C-->
     <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
         <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
           <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
@@ -75,17 +100,27 @@
           <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
         </symbol>
       </svg>
-
+    
+    <!--Main Screen Container-->
     <div class="container-fluid px-5">
         <div class="row mt-5">
+            <!--Column containing the search form-->
             <div class="col-md-2">
+                <!--Position sticky and top ensure that this component sticks at top and does
+                    not scroll. -->
                 <div class="row" style="position: sticky; top: 6em;">
+                <!--Header of form-->
                 <h3>Search Database</h3>
+                    <!--Organism search form. Upon submission, it calls the javascript
+                        callSearch() funtion. The reutrn false clause prevents the page
+                        from resubmitted upon form submission.-->
                     <form onsubmit="callSearch(); return false;">
                         <div class="mb-3">
                             <label for="organism search" class="form-label pb-0">Enter Oragnism Name:</label>
                             <input class="form-control" type="text" id="OrgName" placeholder="Ex: Genus Species"/>
                             <button name="formButton" type="submit" class="btn mt-2 pt-1" style="background-color: #0049bf;color: white;">Submit</button>
+                            <!--Error Message box that is initially hidden. It is programmatically
+                                updated within the javascript callSearch() function-->
                             <div name="FormErrorBox" style="visibility: hidden;" class="alert alert-danger d-flex align-items-center mt-2" role="alert">
                                 <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
                                 <div name="ErrorMessage"></div>
@@ -94,45 +129,56 @@
                     </form>
                 </div>
             </div>
+            <!--Column containing the data presentation form.
+                Each row in this container houses a difference section-->
             <div class="col-md-6 ">
                 <div class="row" style="position: sticky; top: 6em;">
+                <!--This container will become visible when results are retrieved from the databse-->
                 <div class="container-fluid" id = "DataContainer" style="visibility: hidden;">
+                    <!--Title row-->
                     <div class="row border-bottom pt-2 mb-2">
                         <div class="col-auto"><h3>Organism:</h3></div>
                         <div class="col-auto"><h3 id="orgName"></h3></div>
                     </div>
+                    <!--Taxonomic Rank row-->
                     <div class="row pb-1">
                         <div class="col-auto"><strong>Rank:</strong></div>
-                        <div class="col-auto" id="rankSlot">Test</div>
+                        <div class="col-auto" id="rankSlot"></div>
                     </div>
+                    <!--Taxonomic lineage row-->
                     <div class="row pb-1">
                         <div class="col-auto"><strong>Lineage:</strong></div>
                         <div class="col-auto" id="linSlot"></div>
                     </div>
+                    <!--NCBI TaxID and link to NCBI Taxonomy row-->
                     <div class="row pb-3">
                         <div class="col-auto"><strong>NCBI TaxonomyID: </strong></div>
-                        <div class="col-auto" id="taxSlot">Test</div>
+                        <div class="col-auto" id="taxSlot"></div>
                         <div>
                             <a id ="taxLink" class="btn mt-2 pt-1" style="background-color: #0049bf;color: white;">Taxonomy Entry</a>
                         </div>
                     </div>
+                    <!-- Title card for genome assembly section-->
                     <div class="row pb-1 border-bottom mb-2">
                         <div class="col-auto"><h5>NCBI RefSeq Genome: </h5></div>
                     </div>
+                    <!--Refseq assembly information row-->
                     <div class="row pb-3">
                         <div class="col-auto"><strong>Assembly: </strong></div>
-                        <div class="col-auto" id="assemblySlot">Test</div>
+                        <div class="col-auto" id="assemblySlot"></div>
                         <div>
                             <a id ="refSeqLink" class="btn mt-2 pt-1" style="background-color: #0049bf;color: white;">RefSeq Entry</a>
                             <a id ="downloadLink" class="btn mt-2 pt-1" style="background-color: #0049bf;color: white;">Download</a>
                         </div>
                     </div>
+                    <!--Title card for pubmed section-->
                     <div class="row pb-1 border-bottom mb-2">
                         <div class="col-auto"><h5>Most Recent PubMed Article: </h5></div>
                     </div>
+                    <!--Pubmed article informatino row-->
                     <div class="row pb-1">
                         <div class="col-auto"><strong>Title: </strong></div>
-                        <div class="col-auto" id="titleSlot">Test</div>
+                        <div class="col-auto" id="titleSlot"></div>
                         <div>
                             <a id="articleLink" class="btn mt-2 pt-1" style="background-color: #0049bf;color: white;">View Article</a>
                         </div>
@@ -140,13 +186,17 @@
                 </div>
             </div>
             </div>
+            <!--Informational Sidebar column-->
             <div class="col-md-3 mx-5" align="center">
                 <div class="row">
+                    <!--Title and Image-->
                     <img class="img-fluid" src="HuPathLogo.JPG">
                     </div>
                     <div class="row px-3">
                     <h3 align="left">Human Pathogen Sequence Repository</h3>
                     <hr/>
+
+                    <!--Abstract and Informational section-->
                     <figure>
                         <blockquote class="blockquote">
                           <p align="left">Over 1400 species are reconigzed as human pathogens</p>
@@ -161,11 +211,14 @@
                     <p align="left">To utilze this database, enter an organism name into the search bar on the left. Data pertaining to the organism's name, 
                         rank, lineage, NCBI Taxonomy ID, and recent PubMed Articles will be displayed. Additionally a link to download the most update RefSeq assembly will also be included.</p>
                     
+                    <!--Video tutorial embed-->
                     <h4 align="left">Video Tutorial:</h4>
                     <p align="left">To be added</p>
                     <div class="embed-responsive embed-responsive-16by9">
                         <iframe class="embed-responsive-item" src="https://www.youtube.com/watch?v=dQw4w9WgXcQ" allowfullscreen></iframe>
                     </div>
+
+                    <!--Footnotes section-->
                     <p align="left" class="text-muted mt-4"> This project was created for the BIOI-4870 Course at the University of Nebraska at Omaha. The code is liscensed under the GPL
                         3.0 Liscence. Access to the source code can be found on my Github.</p>
                     <div align="left">
