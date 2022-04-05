@@ -27,3 +27,9 @@ The genomic data will be truncated to ~100MB per organism to ensure that the dat
 ## Changelog
 
 03/16/2022 - Created Repository and added intial information to README.md
+03/20/2022 - Created Intital Draft of database DDL
+03/27/2022 - Developed the HuPat Homepage HTML
+03/28/2022 - Continued front-end modification and began developing PHP back-end
+03/31/2022 - Developed, tested, and completed a python script to automate data acquisition
+04/03/2022 - Connected and finalized PHP back-end and HTML front-end integration
+04/05/2022 - Added supporting code comments and tweaked search result posting events
