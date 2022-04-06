@@ -74,24 +74,42 @@ def main():
         initialRefSeqSearch = Entrez.esearch(db="assembly", term="{0}[Organism] AND \"reference genome\"[filter]".format(org))
         initialRefSeqRec = Entrez.read(initialRefSeqSearch)
 
-        # Uses the NCBI Assembly entry ID to grab the record.
-        refSeqHandle = Entrez.esummary(db="assembly", id = initialRefSeqRec["IdList"][0], report="full")
-        refSeqRec = Entrez.read(refSeqHandle)
+        refSeqRec = ''
+        refSeqHandle = ''
+        # Some organisms have a reference genome, while others do not. 
+        # If there is not a reference genome, search the database again
+        # for a representative genome.
+        if (len(initialRefSeqRec["IdList"]) == 0):
 
-        # Close Entrez Handles
+            # Searches the assembly database for the given organism and it's representative genome
+            initialRefSeqSearch = Entrez.esearch(db="assembly", term="{0}[Organism] AND \"representative genome\"[filter]".format(org))
+            initialRefSeqRec = Entrez.read(initialRefSeqSearch)
+
+        # Still, some organisms will not have a representative genome. If
+        # either search came back positive, the ID retrieved will be used to
+        # grab the full entry. If not, the RefSeq entry will be skipped. 
+        if (len(initialRefSeqRec["IdList"]) != 0):
+            # Uses the NCBI Assembly entry ID to grab the record.
+            refSeqHandle = Entrez.esummary(db="assembly", id = initialRefSeqRec["IdList"][0], report="full")
+            refSeqRec = Entrez.read(refSeqHandle)
+
+            # Grabs the RefSeq Genome Accession Number and RefSeqFTP Link
+            # Also creates a link to the RefSeq entry using the accession number
+            # and the general NCBI Link format
+            refSeqAcc = refSeqRec['DocumentSummarySet']['DocumentSummary'][0]["Synonym"]["RefSeq"]
+            refSeqFTP = refSeqRec['DocumentSummarySet']['DocumentSummary'][0]["FtpPath_RefSeq"]
+            refSeqLink = NCBI_RefSeq_Link_prefix + refSeqAcc + "/"
+
+            # Creates and executes an insert statement for the RefSeqEntry table
+            insertRefSeq = "INSERT INTO RefSeqEntry (refSeq_accession, ncbi_refseq_link, assembly_link, organismID) VALUES ('{0}', '{1}', '{2}', {3})".format(refSeqAcc, refSeqLink, refSeqFTP, orgId)
+            cursor.execute(insertRefSeq)
+
+            # Close Entrez Handle
+            refSeqHandle.close()
+
+        # Close Intital Search Entrez Handle
         initialRefSeqSearch.close()
-        refSeqHandle.close()
-
-        # Grabs the RefSeq Genome Accession Number and RefSeqFTP Link
-        # Also creates a link to the RefSeq entry using the accession number
-        # and the general NCBI Link format
-        refSeqAcc = refSeqRec['DocumentSummarySet']['DocumentSummary'][0]["Synonym"]["RefSeq"]
-        refSeqFTP = refSeqRec['DocumentSummarySet']['DocumentSummary'][0]["FtpPath_RefSeq"]
-        refSeqLink = NCBI_RefSeq_Link_prefix + refSeqAcc + "/"
-
-        # Creates and executes an insert statement for the RefSeqEntry table
-        insertRefSeq = "INSERT INTO RefSeqEntry (refSeq_accession, ncbi_refseq_link, assembly_link, organismID) VALUES ('{0}', '{1}', '{2}', {3})".format(refSeqAcc, refSeqLink, refSeqFTP, orgId)
-        cursor.execute(insertRefSeq)
+        
 
         # Searches the NCBI PubMed Database for articles references in the organism
         # Results are sorted by date, to grab the most recent publication
