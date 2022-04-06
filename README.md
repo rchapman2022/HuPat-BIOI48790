@@ -1,5 +1,5 @@
 # HuPat - Human Pathogen Sequence Repository
-![HuPat Logo]https://github.com/rchapman2022/HuPat-BIOI48790/blob/main/Front-end/HuPatLogo.JPG
+![HuPat Logo](https://github.com/rchapman2022/HuPat-BIOI48790/blob/main/Front-end/HuPatLogo.JPG)
 Repository for BIOI4870 undergraduate course project
 
 ## Site Availability
