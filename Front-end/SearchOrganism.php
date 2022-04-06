@@ -24,7 +24,7 @@ $orgname = $_POST['OrgName'];
 /* Creates the SQL query to grab relevant data for this organism */
 $query = "SELECT lineage, organism_rank, organism_name, t.taxID, ncbi_tax_link, refSeq_accession, 
             ncbi_refseq_link, assembly_link, article_title, article_link FROM Organism AS o JOIN Taxonomy AS t 
-            ON o.taxID = t.taxID JOIN RefSeqEntry AS r ON o.organismID = r.organismID JOIN OrganismPubMedLink AS opl 
+            ON o.taxID = t.taxID LEFT JOIN RefSeqEntry AS r ON o.organismID = r.organismID JOIN OrganismPubMedLink AS opl 
             ON o.organismID = opl.organismID JOIN PubMedEntries AS p ON p.pubmedID = opl.pubmedID WHERE organism_name = '$orgname';";
 
 /* Uses the mysql connector to perform this query on the database */

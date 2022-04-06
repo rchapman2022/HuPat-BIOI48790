@@ -17,7 +17,7 @@ NCBI_PubMed_Link_prefix = "https://pubmed.ncbi.nlm.nih.gov/"
 def main():
     
     # Create MySQL connection and cursor
-    cnx = MySQLdb.connect(user="rchapman", password='', host='localhost', db='rchapman')
+    cnx = MySQLdb.connect(user="rchapman", password='', host='localhost', db='rchapman', use_unicode=True, charset="utf8")
     cursor = cnx.cursor()
 
     # Read in file containing list of organism taxonomic classifications
@@ -132,6 +132,7 @@ def main():
 
         # Creates and executes an insert statment for the PubMedEntry table
         insertPubMed = "INSERT INTO PubMedEntries (pubmedID, article_title, article_link) VALUES ('{0}', '{1}', '{2}');".format(pubMedID, pubMedTitle, pubMedLink)
+        print(insertPubMed)
         cursor.execute(insertPubMed)
 
         # Creates and executes an insert statement for the OrganismPubMedLink table

@@ -1,3 +1,10 @@
 escherichia coli
 staphylococcus aureus
+helicobacter pylori
+toxoplasma gondii
+plasmodium falciparum
+naegleria fowleri
+candida albicans
+cryptococcus neoformans
+aspergillus fumigatus
 pseudomonas aeruginosa
