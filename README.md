@@ -24,6 +24,11 @@ The genomic data will be truncated to ~100MB per organism to ensure that the dat
 
 *To be added*
 
+## Database Design
+
+### ER Diagram
+![alt text](https://github.com/rchapman2022/HuPat-BIOI48790/blob/main/Documentation/HuPatERDiagram.png)
+
 ## Changelog
 
 - 03/16/2022 - Created Repository and added intial information to README.md
@@ -32,4 +37,4 @@ The genomic data will be truncated to ~100MB per organism to ensure that the dat
 - 03/28/2022 - Continued front-end modification and began developing PHP back-end
 - 03/31/2022 - Developed, tested, and completed a python script to automate data acquisition
 - 04/03/2022 - Connected and finalized PHP back-end and HTML front-end integration
-- 04/05/2022 - Added supporting code comments and tweaked search result posting events
+- 04/05/2022 - Added supporting code comments, tweaked search result posting events, modified database schema and aquisition script to be able to hold entrie without a reference genome (either a representative genome or no genome), and updated front-end to handle entries with no RefSeq assembly
