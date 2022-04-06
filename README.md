@@ -1,5 +1,7 @@
 # HuPat - Human Pathogen Sequence Repository
-![HuPat Logo](https://github.com/rchapman2022/HuPat-BIOI48790/blob/main/Front-end/HuPatLogo.JPG)
+<p align="center">
+  <img src="https://github.com/rchapman2022/HuPat-BIOI48790/blob/main/Front-end/HuPatLogo.JPG">
+</p>
 
 Repository for BIOI4870 undergraduate course project
 
@@ -41,7 +43,9 @@ The genomic data will be truncated to ~100MB per organism to ensure that the dat
 ## Database Design
 
 ### ER Diagram
-![HuPat ER Diagram](https://github.com/rchapman2022/HuPat-BIOI48790/blob/main/Documentation/HuPatERDiagram.png)
+<p align="center">
+  <img style="background-color: rgb(300, 300, 300);" src="https://github.com/rchapman2022/HuPat-BIOI48790/blob/main/Documentation/HuPatERDiagram.png">
+</p>
 
 ## Changelog
 
