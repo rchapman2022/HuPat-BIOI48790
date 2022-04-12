@@ -44,7 +44,7 @@ The genomic data will be truncated to ~100MB per organism to ensure that the dat
 
 ### ER Diagram
 <p align="center">
-  <img style="background-color: rgb(300, 300, 300);" src="https://github.com/rchapman2022/HuPat-BIOI48790/blob/main/Documentation/HuPatERDiagram.png">
+  <img style="background-color: rgb(300, 300, 300);" src="https://github.com/rchapman2022/HuPat-BIOI48790/blob/main/Documentation/HuPatERDiagram.jpg">
 </p>
 
 ## Changelog
