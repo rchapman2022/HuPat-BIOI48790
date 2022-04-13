@@ -76,7 +76,7 @@ This section contains documentation submitted with the course project.
 </p>
 
 ### Data Dictionary 
-The Data dictionary for HuPat can be found here.
+The Data dictionary for HuPat can be found in the [DDL text document](https://github.com/rchapman2022/HuPat-BIOI48790/blob/main/Documentation/HuPatDDL.txt)
 
 
 ## Changelog
