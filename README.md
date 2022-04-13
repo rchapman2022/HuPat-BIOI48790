@@ -22,13 +22,13 @@ HuPat can be accessed at http://odin.unomaha.edu/~rchapman/HuPat/home.html
 
 ### Utilization
 <p align="center">
-  <img style="background-color: rgb(300, 300, 300);" src="https://github.com/rchapman2022/HuPat-BIOI48790/blob/main/Documentation/EmptyHomepage.jpg">
+  <img style="background-color: rgb(300, 300, 300);" src="https://github.com/rchapman2022/HuPat-BIOI48790/blob/main/Documentation/HuPatEmptyHomepage.jpg">
 </p>
 
 Upon loading the site, the page will appear blank. You can scroll to read information about the page on the righthand side. To display organism data, enter an organism name from the provided list, and click submit.
 
 <p align="center">
-  <img style="background-color: rgb(300, 300, 300);" src="https://github.com/rchapman2022/HuPat-BIOI48790/blob/main/Documentation/PopulatedHomepage.jpg">
+  <img style="background-color: rgb(300, 300, 300);" src="https://github.com/rchapman2022/HuPat-BIOI48790/blob/main/Documentation/HuPatPopulatedHomepage.jpg">
 </p>
 
 
