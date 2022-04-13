@@ -31,6 +31,10 @@ Upon loading the site, the page will appear blank. You can scroll to read inform
   <img style="background-color: rgb(300, 300, 300);" src="https://github.com/rchapman2022/HuPat-BIOI48790/blob/main/Documentation/PopulatedHomepage.JPG">
 </p>
 
+Organism names **must** be presented in the format *Genus species* and no abbreviations may be used. The serach is **not case sensitive**.
+
+### Tutorial
+Video Tutorial Available at https://app.vidgrid.com/embed/xBIq5GobDIq0 
 
 ## Purpose
 The purpose of the Human Pathogen Sequence Repository (HuPat) is to compile genetic sequence data from human pathogens for search, retrieval, and analysis. Without a consolidated and concise repository for this data, any in silico procedure is inherently disadvantaged, as additional data manipulation and retrieval will be required. In many cases, these additional measures required bioinformatics experience, which is not universal amongst biomedical researchers. The creation of HuPat should lead to both consolidation human pathogen sequencing as well as increase the accessibility of such analyses to a wider array of scientists.
