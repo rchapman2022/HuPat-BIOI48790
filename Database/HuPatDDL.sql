@@ -24,7 +24,7 @@ CREATE TABLE Organism (
     lineage VARCHAR(500) NOT NULL,
     organism_rank VARCHAR(20) NOT NULL,
     organism_name VARCHAR(50) NOT NULL,
-    taxID VARCHAR(20) NOT NULL REFERENCES Taxonomy(taxID)
+    taxID VARCHAR(10) NOT NULL REFERENCES Taxonomy(taxID)
 );
 
 -- Creates the RefSeqEntry Table to represent a RefSeq genome assembly for an organism. The
