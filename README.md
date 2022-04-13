@@ -20,6 +20,18 @@ HuPat can be accessed at http://odin.unomaha.edu/~rchapman/HuPat/home.html
 - aspergillus fumigatus
 - pseudomonas aeruginosa
 
+### Utilization
+<p align="center">
+  <img style="background-color: rgb(300, 300, 300);" src="https://github.com/rchapman2022/HuPat-BIOI48790/blob/main/Documentation/EmptyHomepage.jpg">
+</p>
+
+Upon loading the site, the page will appear blank. You can scroll to read information about the page on the righthand side. To display organism data, enter an organism name from the provided list, and click submit.
+
+<p align="center">
+  <img style="background-color: rgb(300, 300, 300);" src="https://github.com/rchapman2022/HuPat-BIOI48790/blob/main/Documentation/PopulatedHomepage.jpg">
+</p>
+
+
 ## Purpose
 The purpose of the Human Pathogen Sequence Repository (HuPat) is to compile genetic sequence data from human pathogens for search, retrieval, and analysis. Without a consolidated and concise repository for this data, any in silico procedure is inherently disadvantaged, as additional data manipulation and retrieval will be required. In many cases, these additional measures required bioinformatics experience, which is not universal amongst biomedical researchers. The creation of HuPat should lead to both consolidation human pathogen sequencing as well as increase the accessibility of such analyses to a wider array of scientists.
 
@@ -38,7 +50,23 @@ The genomic data will be truncated to ~100MB per organism to ensure that the dat
 
 ## File Structure
 
-*To be added*
+### Front-end Directory
+| File | Description |
+| --- | --- |
+| home.html | An html file that encodes the user interface of the website. The formatting was created using Bootstrap5, and Javascript was used to developed to create any dynamic page functionality and connect to the php back-end. |
+| HuPatLogo.JPG | A .jpg file containing the HuPat logo to be displayed on the webpage. |
+| SearchOrganism.php | A php script that queries the MySQL database using the organism entered by the user. |
+
+### Database Directory 
+| File | Description |
+| --- | --- |
+| dataAcquisition.py | A python script that automatically queries the NCBI Taxonomy, PubMed, and Assembly databases to gather data for the database. Ideally this script could be automated via a cron job to update the database daily. The script pulls a list of organisms from th OrganismsToSearch.txt file. |
+| HuPatDDL.sql | A sql script that creates the database tables in MySQL. More information on the database design can be found in the Databse Design section of this document. |
+| OrganismsToSearch.txt | A simple text file that contains a list of pathogenic organisms that are used to populate the database. |
+| esummary_assembly.dtd and ulist.dtd | Automatically generated files by MySQL. |
+
+### Documentation
+This section contains documentation submitted with the course project.
 
 ## Database Design
 
