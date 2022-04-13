@@ -75,6 +75,10 @@ This section contains documentation submitted with the course project.
   <img style="background-color: rgb(300, 300, 300);" src="https://github.com/rchapman2022/HuPat-BIOI48790/blob/main/Documentation/HuPatERDiagram.jpg">
 </p>
 
+### Data Dictionary 
+The Data dictionary for HuPat can be found here.
+
+
 ## Changelog
 
 - 03/16/2022 - Created Repository and added intial information to README.md
