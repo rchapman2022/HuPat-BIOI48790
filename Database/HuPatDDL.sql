@@ -2,7 +2,7 @@
 
 -- Creates the Taxonomy Table to represent an NCBI Taxonomy entry associated with an organism. 
 -- The table contains the following attributes:
----- taxID (Primary Key) - NCBI’s identifier code for the taxonomy
+---- taxID (Primary Key) - NCBI’s unique identifier code given to each taxonomy.
 ---- ncbi_tax_link - A link to the NCBI page for the taxonomy.
 CREATE TABLE Taxonomy (
     taxID VARCHAR(10) NOT NULL PRIMARY KEY,
@@ -18,7 +18,7 @@ CREATE TABLE Taxonomy (
 ----            from kingdom to phylum, separated by semi-colon. 
 ---- organism_rank - The current taxonomic rank of the organism. Will be species in most cases.
 ---- organism_name - The scientific name for the organism.
----- taxID (Foreign Key references Taxonomy(taxID) - The NCBI taxonomy ID for the organism.
+---- taxID (Foreign Key references Taxonomy(taxID) - The unique NCBI taxonomy ID for the organism.
 CREATE TABLE Organism (
     organismID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     lineage VARCHAR(500) NOT NULL,
@@ -29,7 +29,7 @@ CREATE TABLE Organism (
 
 -- Creates the RefSeqEntry Table to represent a RefSeq genome assembly for an organism. The
 -- table contains the following attributes:
----- refSeq_accession (Primary Key) - NCBI’s RefSeq database accession number for the assembly.
+---- refSeq_accession (Primary Key) - NCBI’s RefSeq database accession number unique to the assembly.
 ---- ncbi_refseq_link - A link to the NCBI RefSeq entry for the assembly.
 ---- assembly_link - A link to the NCBI FTP site to download the assembly.
 ---- organismID (Foreign Key references Organism(organismID)) - The ID for the organism associated 
@@ -43,7 +43,7 @@ CREATE TABLE RefSeqEntry (
 
 -- Creates the PubMedEntries Table to represent the most recent PubMed article associated with
 -- an organism. The table contains the following attributes:
----- pubmedID (Primary Key) - NCBI’s identifier for the PubMed article.
+---- pubmedID (Primary Key) - NCBI’s unique identifier for the PubMed article.
 ---- article_title - The title of the PubMed article.
 ---- article_link - A link to the NCBI PubMed site to access the article.
 CREATE TABLE PubMedEntries (
@@ -56,7 +56,7 @@ CREATE TABLE PubMedEntries (
 -- multiple organisms to be associated with the same pubmed article. The table contains the following
 -- attributes:
 ---- organismID (Foreign Key references Organism(organismID)) - The ID of the organism to be associated with the pubmed article.
----- pubmedID (Foreign Key references PubMedEntry(pubmedID)) - NCBI’s identifier for the PubMed article.
+---- pubmedID (Foreign Key references PubMedEntry(pubmedID)) - NCBI’s unique identifier for the PubMed article.
 ----
 ---- Primary Key: (organismID, pubmedID)
 CREATE TABLE OrganismPubMedLink (
