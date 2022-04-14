@@ -93,3 +93,4 @@ The Data dictionary for HuPat can be found in the [Data Dictionary text document
 - 04/03/2022 - Connected and finalized PHP back-end and HTML front-end integration
 - 04/05/2022 - Added supporting code comments, tweaked search result posting events, modified database schema and aquisition script to be able to hold entrie without a reference genome (either a representative genome or no genome), and updated front-end to handle entries with no RefSeq assembly
 - 04/12/2022 - Added Data Dictionary, added support form, created tutorial video, and continued to modify README.
+- 04/13/2022 - Revised Data Dictionary and ER Diagram to reflect changes. 
