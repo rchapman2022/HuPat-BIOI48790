@@ -1,5 +1,9 @@
 <?php
 
+/* SearchOrganism.php - The Search Organism Script acts as a back-end which retrieves the organism name
+   submitted by the user on the front end, uses it to query the HuPat MySQL database, 
+   and returns the retrieved data in JSON format to the front-end. */
+
 /* Define variables containing credentials for database connection */
 $server="localhost";
 $username="rchapman";

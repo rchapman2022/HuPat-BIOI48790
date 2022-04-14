@@ -55,7 +55,6 @@ def main():
         
         # Creates and executes an insert statemtn for the Taxonomy table
         insertTax = "INSERT INTO Taxonomy (taxID, ncbi_tax_link) VALUES ('{0}', '{1}');".format(taxID, NCBI_Tax_Link_prefix + taxID)
-        print(insertTax)
         cursor.execute(insertTax)
 
         # Creates an executes an insert statement for the Organism table
@@ -132,7 +131,6 @@ def main():
 
         # Creates and executes an insert statment for the PubMedEntry table
         insertPubMed = "INSERT INTO PubMedEntries (pubmedID, article_title, article_link) VALUES ('{0}', '{1}', '{2}');".format(pubMedID, pubMedTitle, pubMedLink)
-        print(insertPubMed)
         cursor.execute(insertPubMed)
 
         # Creates and executes an insert statement for the OrganismPubMedLink table

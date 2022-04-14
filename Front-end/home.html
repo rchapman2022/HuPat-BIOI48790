@@ -59,21 +59,21 @@
                         document.getElementById("taxSlot").innerHTML = data.taxID;
                         document.getElementById("taxLink").href = data.taxLink;
                         
-			console.log(data.assembly)
-			// If there is a RefSeq assembly, the data will be filled in
-			if (!!data.assembly) {
-			    document.getElementById("assemblySlot").innerHTML = data.assembly;
-                            document.getElementById("refSeqLink").href = data.refSeqLink;
-                            document.getElementById("downloadLink").href = data.downloadLink;
-			}
-			// If there is no RefSeq assembly for the organism, the assembly
-			// will be replaced with a notice and the links will not work
-			else {
-			    document.getElementById("assemblySlot").innerHTML = "No reference \
-				or representative genome for this organsim";
-			    document.getElementById("refSeqLink").href = '#';
-	                    document.getElementById("downloadLink").href = '#';
-			}
+                        // If there is a RefSeq assembly, the data will be filled in
+                        if (!!data.assembly) {
+                            document.getElementById("assemblySlot").innerHTML = data.assembly;
+                                        document.getElementById("refSeqLink").href = data.refSeqLink;
+                                        document.getElementById("downloadLink").href = data.downloadLink;
+                        }
+                        // If there is no RefSeq assembly for the organism, the assembly
+                        // will be replaced with a notice and the links will not work
+                        else {
+                            document.getElementById("assemblySlot").innerHTML = "No reference \
+                            or representative genome for this organsim";
+                            document.getElementById("refSeqLink").href = '#';
+                                    document.getElementById("downloadLink").href = '#';
+                        }
+                        
                         document.getElementById("titleSlot").innerHTML = data.title;
                         document.getElementById("articleLink").href = data.articleLink;
 
