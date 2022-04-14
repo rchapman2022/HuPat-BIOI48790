@@ -5,8 +5,7 @@ ncbi_tax_link	varchar(200)	None	N	A link to the NCBI page for the taxonomy.
 
 Table: Organism
 Attribute	Type	Constraints	Null	Description
-organismID	integer	Primary Key,
-Auto increment	N	An automatically generated identification number for the organism. This value is arbitrary and is stored primarily for table reference and future expansion.
+organismID	integer	Primary Key,Auto increment	N	An automatically generated identification number for the organism. This value is arbitrary and is stored primarily for table reference and future expansion.
 lineage	varchar(500)	None	N	The taxonomic lineage of the given organism. A list of taxonomic levels from kingdom to phylum, separated by semi-colon. 
 organism_rank	varchar(20)	None	N	The current taxonomic rank of the organism. Will be species in most cases.
 organism_name	varchar(50)	None	N	The scientific name for the organism.
